@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Game from "./components/Game";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [difficulty, setDifficulty] = useState("easy");
+  const [paragraphs] = useState({
+    easy: "This is an easy sentence.",
+    medium:
+      "Here is a medium difficulty sentence with more words and complexity.",
+    hard: "This is a hard sentence, which includes complex vocabulary, multiple punctuation marks, and is designed to challenge your typing speed and accuracy.",
+  });
+
+  const handleDifficultyChange = (e) => {
+    setDifficulty(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Typing Game</h1>
+      <div>
+        <label>Select Difficulty: </label>
+        <select value={difficulty} onChange={handleDifficultyChange}>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <Game paragraph={paragraphs[difficulty]} />
     </div>
   );
-}
+};
 
 export default App;
